@@ -501,6 +501,10 @@
 @layer components;
 
 @layer utilities {
+  .static {
+    position: static;
+  }
+
   .sticky {
     position: -webkit-sticky;
     position: sticky;
