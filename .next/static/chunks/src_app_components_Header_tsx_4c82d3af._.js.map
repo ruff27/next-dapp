@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///F:/projects/next-dapp/src/app/components/Header.tsx"],"sourcesContent":["\"use client\";\r\n\r\nimport { ConnectButton } from \"@rainbow-me/rainbowkit\";\r\n\r\nexport default function Header() {\r\n  return (\r\n    <header className=\"flex justify-between items-center p-4 bg-zinc-900\">\r\n      <h1 className=\"text-xl font-bold text-white\">Next Dapp 🚀</h1>\r\n      <ConnectButton />\r\n    </header>\r\n  );\r\n}\r\n"],"names":[],"mappings":";;;;;AAEA;AAFA;;;AAIe,SAAS;IACtB,qBACE,6LAAC;QAAO,WAAU;;0BAChB,6LAAC;gBAAG,WAAU;0BAA+B;;;;;;0BAC7C,6LAAC,kMAAa;;;;;;;;;;;AAGpB;KAPwB","debugId":null}}]
+}
