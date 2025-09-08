@@ -1,37 +1,31 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "lib": [
-      "dom",
-      "es2022"
-    ],
+    "lib": ["dom", "es2022"],
     "module": "ESNext",
     "moduleResolution": "bundler",
     "jsx": "preserve",
+    "esModuleInterop": true,
     "strict": true,
     "noEmit": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "allowJs": true,
-    "types": [
-      "node"
-    ],
     "skipLibCheck": true,
     "incremental": true,
-    "esModuleInterop": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ]
+    "types": ["node"],
+    "plugins": [{ "name": "next" }]
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    "next-env.d.ts",
-    ".next/types/**/*.ts"
-  ],
+  "include": ["next-env.d.ts", "src/**/*", ".next/types/**/*.ts"],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "test",
+    "tests",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/*.spec.ts",
+    "**/*.spec.tsx",
+    "hardhat.config.ts",
+    "foundry.toml",
+    "scripts"
   ]
 }
