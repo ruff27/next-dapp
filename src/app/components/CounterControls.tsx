@@ -6,6 +6,7 @@ import {
   useReadContract,
   useWriteContract,
   useWaitForTransactionReceipt,
+  useWatchContractEvent
 } from "wagmi";
 import { ADDRESSES, DEFAULT_CHAIN_ID } from "../contracts";
 import { notifyNewTx } from "../txBus";
@@ -27,7 +28,20 @@ export default function CounterControls() {
     abi: counterAbi,
     functionName: "number",
     query: { enabled: isConnected },
-    watch: true,
+  });
+
+  useWatchContractEvent({
+    address: counter,
+    abi: counterAbi,
+    eventName: "Incremented",
+    onLogs: () => refetch(),
+  });
+
+  useWatchContractEvent({
+    address: counter,
+    abi: counterAbi,
+    eventName: "Decremented",
+    onLogs: () => refetch(),
   });
 
   // free-typing amount; enforce min=1 on blur/submit
@@ -48,7 +62,7 @@ export default function CounterControls() {
     if (txHash && notified.current !== txHash) {
       notifyNewTx(txHash as `0x${string}`);
       notified.current = txHash;
-      setSubmitting(false); 
+      setSubmitting(false);
     }
   }, [txHash]);
 
@@ -126,7 +140,7 @@ export default function CounterControls() {
           onBlur={() => {
             if (amountStr === "" || amountStr === "0") setAmountStr("1");
           }}
-          className="w-16 px-2 py-1 text-center rounded-md border bg-white text-zinc-900 dark:bg-zinc-800 dark:text-zinc-100 border-zinc-300 dark:border-zinc-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"/>
+          className="w-16 px-2 py-1 text-center rounded-md border bg-white text-zinc-900 dark:bg-zinc-800 dark:text-zinc-100 border-zinc-300 dark:border-zinc-700 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
       </div>
 
       <div className="flex gap-3">

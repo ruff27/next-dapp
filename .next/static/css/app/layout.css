@@ -797,7 +797,7 @@ video {
   transition-duration: 150ms;
 }
 
-/* Optional: light/dark background defaults */
+
 :root {
   --bg: 255 255 255;
   --fg: 24 24 27;
