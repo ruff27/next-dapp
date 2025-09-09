@@ -20,7 +20,7 @@
 /coverage
 
 /node_modules
-./next
+/.next
 /out
 
 
