@@ -177,7 +177,7 @@ export default function CounterControls() {
       )}
       {isConnected && error && (
         <div className="text-rose-400 text-sm">
-          ⚠️ {error.shortMessage || error.message}
+          ⚠️ {error instanceof Error ? error.message : String(error)}
         </div>
       )}
     </div>
