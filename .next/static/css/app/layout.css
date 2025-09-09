@@ -679,9 +679,6 @@ video {
 .bg-zinc-800\/50 {
   background-color: rgb(39 39 42 / 0.5);
 }
-.bg-zinc-800\/60 {
-  background-color: rgb(39 39 42 / 0.6);
-}
 .p-6 {
   padding: 1.5rem;
 }
@@ -739,10 +736,6 @@ video {
 .text-xl {
   font-size: 1.25rem;
   line-height: 1.75rem;
-}
-.text-xs {
-  font-size: 0.75rem;
-  line-height: 1rem;
 }
 .font-medium {
   font-weight: 500;

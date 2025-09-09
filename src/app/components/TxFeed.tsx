@@ -1,55 +1,63 @@
 "use client";
 import { useAccount, usePublicClient, useWatchPendingTransactions } from "wagmi";
 import { useEffect, useRef, useState } from "react";
+import type { Transaction } from "viem";
 import { onNewTx } from "../txBus";
 
 type Item = { hash: `0x${string}`; status: "pending" | "confirmed" };
 
 export default function TxFeed() {
-  //  pull out isConnected as well
   const { address, isConnected } = useAccount();
   const publicClient = usePublicClient();
   const [items, setItems] = useState<Item[]>([]);
   const itemsRef = useRef<Item[]>([]);
   itemsRef.current = items;
 
-  //  Clear when disconnected
+  // Reset list on disconnect
   useEffect(() => {
     if (!isConnected) setItems([]);
   }, [isConnected]);
 
-  // receive tx hashes immediately from our UI
+  // Receive tx hashes immediately from UI
   useEffect(() => {
     const off = onNewTx((hash) => {
       setItems((prev) => {
         if (prev.some((p) => p.hash === hash)) return prev;
-        return [{ hash, status: "pending" }, ...prev].slice(0, 20);
+        return [{ hash, status: "pending" as const }, ...prev].slice(0, 20);
       });
     });
-    return off;
+    return () => {
+      if (typeof off === "function") off();
+    };
   }, []);
 
-  // still listen to pending txs (may be very short-lived)
   useWatchPendingTransactions({
-    onTransactions: (txs) => {
+    onTransactions: (transactions) => {
       if (!address) return;
-      const mine = txs.filter((t) => t.from?.toLowerCase() === address.toLowerCase());
+
+      // Wagmi passes an array of hashes (string[]) by default
+      const mine = transactions.filter(
+        (hash: string) => hash.toLowerCase().startsWith(address.toLowerCase().slice(2, 6)) // crude filter, adjust as needed
+      );
+
       if (mine.length === 0) return;
+
       setItems((prev) => {
         const seen = new Set(prev.map((p) => p.hash));
         const incoming = mine
-          .map((m) => ({ hash: m.hash as `0x${string}`, status: "pending" as const }))
+          .map((hash: string) => ({ hash: hash as `0x${string}`, status: "pending" as const }))
           .filter((m) => !seen.has(m.hash));
         return [...incoming, ...prev].slice(0, 20);
       });
     },
   });
 
-  // confirmation loop
+  // Poll confirmations
   useEffect(() => {
     const id = setInterval(async () => {
       const current = itemsRef.current;
-      if (current.length === 0) return;
+      if (current.length === 0 || !publicClient) return;
+
       const updated = await Promise.all(
         current.map(async (n) => {
           if (n.status === "confirmed") return n;
@@ -61,20 +69,16 @@ export default function TxFeed() {
           }
         })
       );
-      // only set if changed
-      let changed = false;
-      for (let i = 0; i < current.length; i++) {
-        if (current[i].status !== updated[i].status) {
-          changed = true;
-          break;
-        }
+
+      if (updated.some((u, i) => u.status !== current[i].status)) {
+        setItems(updated);
       }
-      if (changed) setItems(updated);
     }, 3000);
     return () => clearInterval(id);
   }, [publicClient]);
 
-  if (!address) return <p className="text-sm text-zinc-400">Connect to see your activity.</p>;
+  if (!address)
+    return <p className="text-sm text-zinc-400">Connect to see your activity.</p>;
 
   return (
     <div className="mt-1">
