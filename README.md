@@ -84,16 +84,12 @@ npm run dev
 
 App runs at http://localhost:3000
 
----
-
 ## ✅ Usage
 
-Connect your wallet.
+Connect your wallet (MetaMask/Rainbow/CoinBaseWallet/WalletConnect).
 
 Choose Increment or Decrement to update the counter on-chain.
 
 Watch transaction status update in the UI and on Etherscan.
 
 Toggle Dark/Light mode as you prefer.
-
----
