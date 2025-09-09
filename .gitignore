@@ -20,5 +20,8 @@
 /coverage
 
 /node_modules
+./next
+/out
+
 
 .env
