@@ -23,7 +23,7 @@ export default function CounterControls() {
   const chain = ADDRESSES[DEFAULT_CHAIN_ID] || ADDRESSES[11155111];
   const counter = chain.counter as `0x${string}`;
 
-  const { data: value } = useReadContract({
+  const { data: value, refetch } = useReadContract({
     address: counter,
     abi: counterAbi,
     functionName: "number",
