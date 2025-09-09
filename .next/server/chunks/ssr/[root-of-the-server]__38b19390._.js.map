@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"","debugId":null}},
-    {"offset": {"line": 17, "column": 0}, "map": {"version":3,"sources":["file:///F:/projects/next-dapp/src/app/page.tsx"],"sourcesContent":["// src/app/layout.tsx\nimport \"./globals.css\";\nimport Providers from \"./providers\";\nimport Header from \"./components/Header\";\n\nexport const metadata = {\n  title: \"Next Dapp\",\n  description: \"Hello-chain starter (Next.js + wagmi + RainbowKit)\",\n};\n\nexport default function RootLayout({ children }: { children: React.ReactNode }) {\n  return (\n    <html lang=\"en\">\n      <body className=\"min-h-screen bg-zinc-950 text-zinc-100\">\n        <Providers>\n          <Header />   {/* ✅ This makes the header show on all pages */}\n          <main className=\"flex justify-center items-center min-h-screen\">\n            {children}\n          </main>\n        </Providers>\n      </body>\n    </html>\n  );\n}\n"],"names":[],"mappings":"AAAA,qBAAqB;;;;;;;;AAErB;AACA;;;;;AAEO,MAAM,WAAW;IACtB,OAAO;IACP,aAAa;AACf;AAEe,SAAS,WAAW,EAAE,QAAQ,EAAiC;IAC5E,qBACE,8OAAC;QAAK,MAAK;kBACT,cAAA,8OAAC;YAAK,WAAU;sBACd,cAAA,8OAAC,mIAAS;;kCACR,8OAAC,8IAAM;;;;;oBAAG;kCACV,8OAAC;wBAAK,WAAU;kCACb;;;;;;;;;;;;;;;;;;;;;;AAMb","debugId":null}}]
-}

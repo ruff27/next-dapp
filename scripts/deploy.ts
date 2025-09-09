@@ -1,4 +1,3 @@
-// scripts/deploy-raw.ts
 import { readFileSync } from "fs";
 import path from "path";
 import * as dotenv from "dotenv";
@@ -28,7 +27,7 @@ async function main() {
     abi,
     bytecode: bytecode as Hex,
     account,
-    args: [],                 // <-- REQUIRED (empty, since Counter has no constructor)
+    args: [],                 
   });
 
   const receipt = await publicClient.waitForTransactionReceipt({ hash });
